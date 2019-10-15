@@ -1,5 +1,5 @@
 # from control import fetch_data
-
+# import control
 from app import app
 from flask import render_template
 
@@ -8,7 +8,7 @@ from flask import render_template
 @app.route('/index/')
 def index():
 
-
+    # control.fetch_data()
     activity = {
             'Jasper':'Reddit',
             'Harley':'Facebook'

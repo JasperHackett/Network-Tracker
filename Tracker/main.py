@@ -19,9 +19,11 @@ t = threading.Thread(target = interface_thread, name = 'site_thread', args=(5,'s
 devices = load_devices()
 
 device_addresses = []
-for device in devices:
-	device_addresses.append(device)
+for device in devices.values():
+	print(device.ip_address)
+	device_addresses.append(device.ip_address)
 
+print(device_addresses)
 hostname_address_dict = {}
 alternate_hostnames_dict = load_hostnames()
 
@@ -30,5 +32,7 @@ def get_devices():
 	return devices
 
 
-t.start()
+print(devices)
+
+# t.start()
 start_capture(interface_id,devices,device_addresses,**alternate_hostnames_dict)

@@ -3,14 +3,15 @@
 class Device():
     ip_address = '0.0.0.0'
     visited_sites = []
-    active_site = "google.com"
+    active_site = "None"
+    mac_address = '00:00:00:00:00:00'
 
     def __init__(self, friendly_name,ip_address):
 
         self.friendly_name = friendly_name
         # self.friendly_name = host_name
         # self.friendly_name = mac_address
-        self.ip_address = ip_address
+        self.ip_address = ip_address.rstrip()
 
     def add_visited(self,hostname):
         # print(self.friendly_name ,' visited a site')
