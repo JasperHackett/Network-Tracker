@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Network Tracker</title>
+      <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+  </head>
+<div class="topnav">
+  <a href="/">Activity</a>
+  <a href="/devices">Devices</a>
+  <a class="active" href="/networkconfig">Network Configuration</a>
+</div>
+
+
+  <body>
+       <h1> NETORK CONFIG </h1>
+
+      <!-- <form action = "http://localhost:5000/result" method = "POST"> -->
+        <form>
+         <p>Network Interface Name: <input type = "text" name = "nic" /></p>
+          <input type="radio" name="mode" value="single" checked> Single<br>
+          <input type="radio" name="mode" value="bridged"> Bridged<br>
+         <p><input type = "submit" value = "Setup" /></p>
+      </form>
+
+  </body>
+</html>

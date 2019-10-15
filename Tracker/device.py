@@ -1,0 +1,19 @@
+
+
+class Device():
+    ip_address = '0.0.0.0'
+    visited_sites = []
+    active_site = "google.com"
+
+    def __init__(self, friendly_name,ip_address):
+
+        self.friendly_name = friendly_name
+        # self.friendly_name = host_name
+        # self.friendly_name = mac_address
+        self.ip_address = ip_address
+
+    def add_visited(self,hostname):
+        # print(self.friendly_name ,' visited a site')
+        if(self.active_site != hostname):
+            self.active_site = hostname
+            print(self.friendly_name, ' is now visiting the site: ', hostname)
