@@ -8,13 +8,17 @@ from flask import render_template
 @app.route('/index/')
 def index():
 
+    text = open('activity_log', 'r+')
+    content = text.read()
+    text.close()
+
     # control.fetch_data()
     activity = {
             'Jasper':'Reddit',
             'Harley':'Facebook'
 
         }
-    return render_template('index.html',title='Home',activity = activity)
+    return render_template('index.html',title='Home',activity = activity, text = content)
 
    
 

@@ -12,11 +12,9 @@ def start_capture(interface_id,devices,device_addresses,**alternate_hostnames):
 				if packet['ip'].src == ip:
 					if 'SSL' in packet:
 						if 'handshake_extensions_server_name' in packet.ssl.field_names:
-							# print('SNI of visited site :',packet.ssl.handshake_extensions_server_name)
-							# primary_hostname = 'none'
 							print('SNI of visited site :',packet.ssl.handshake_extensions_server_name)
 							if check_address(packet.ssl.handshake_extensions_server_name,**alternate_hostnames) is True:
-								for device in devices:
+								for device in devices.values():
 									if device.ip_address == ip:
 										device.add_visited(primary_hostname)
 
@@ -32,12 +30,10 @@ def check_address(dst_address,**alternate_hostnames):
 	i = 0
 	for primary, alternate in alternate_hostnames.items():
 		for name in alternate:
-			# print(name)
 			if dst_address == name:
 				primary_hostname = primary
-				# print('PRIMARY HOSTNAME: ', primary_hostname)
 				return True
-				print("Site visited:",primary)
+				# print("Site visited:",primary)
 		++i
 
 	return False

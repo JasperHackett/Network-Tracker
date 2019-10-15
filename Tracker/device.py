@@ -17,4 +17,9 @@ class Device():
         # print(self.friendly_name ,' visited a site')
         if(self.active_site != hostname):
             self.active_site = hostname
-            print(self.friendly_name, ' is now visiting the site: ', hostname)
+
+            out_str = self.friendly_name + ' is now visiting the site: ' + hostname + '\n'
+            f = open("activity_log","a+")
+            f.write(out_str)
+            f.close() 
+            # print(self.friendly_name, ' is now visiting the site: ', hostname)
