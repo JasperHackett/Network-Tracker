@@ -1,0 +1,3 @@
+bridgemode:0
+interface1:
+interface2:

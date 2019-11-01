@@ -2,7 +2,7 @@
 # import control
 from app import app
 from flask import render_template
-
+from flask import request
 
 @app.route('/')
 @app.route('/index/')
@@ -12,35 +12,69 @@ def index():
     content = text.read()
     text.close()
 
-    # control.fetch_data()
-    activity = {
-            'Jasper':'Reddit',
-            'Harley':'Facebook'
 
-        }
-    return render_template('index.html',title='Home',activity = activity, text = content)
+    return render_template('index.html',title='Home', text = content)
 
    
 
 
-@app.route('/devices')
+@app.route('/devices', methods=['GET','POST'])
 def devices():
-    x = 0
-    print('test')
-    user = {'username':x}
+    device_list = {}
+    # projectpath = request.form['projectFilepath']
 
-    posts = [
-        {
-            'author':{'username':'Jasper'},
-            'body':'Jasper labtop is visiting now'
+    # text = open('device_list', 'r+')
+    # content = text.read()
+    # text.close()
 
-        },
-        {
-            'author': {'username': 'Vicii'},
-            'body': 'Vicii mobile is visiting now'
-        }
-    ]
-    return render_template('devices.html',title='Devices',user=user,posts=posts)
+    with open("device_list") as f:
+        for line in f:
+            (key,value) = line.split(':')
+            val = value.rstrip()
+            device_list[key] = val
+
+
+    if request.method == 'POST':
+        # print('TEST')
+        multi_dict = request.form
+        # print(multi_dict)
+        device_to_append = {}
+        device_to_append = multi_dict.to_dict(flat = False)
+        print(device_to_append)
+
+        i = 0
+        append_str = ""
+        for entry in device_to_append:
+            print('ENTRY: ' + entry)
+            if entry  == 'reset_button':
+                    f = open("device_list","w")
+                    f.truncate(0)
+                    f.close()
+                    device_list = {}
+                    return render_template('devices.html',device_list = device_list)
+
+
+            if i is 0:
+                append_str = append_str + device_to_append[entry][0] + ":"
+            if i is 1:
+                append_str = append_str + device_to_append[entry][0]
+            i = i + 1
+            # print(device_to_append[entry])
+        f = open("device_list","a+")
+        f.write(append_str + '\n')
+        # print(device_list_append[Name])
+        # print(append_str)
+        f.close()
+        with open("device_list") as f:
+            for line in f:
+                (key,value) = line.split(':')
+                val = value.rstrip()
+                device_list[key] = val
+        return render_template('devices.html',device_list = device_list)
+
+
+
+    return render_template('devices.html',title='Devices',device_list = device_list)
 
 
 

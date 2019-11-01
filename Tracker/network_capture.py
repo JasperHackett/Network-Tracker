@@ -12,7 +12,7 @@ def start_capture(interface_id,devices,device_addresses,**alternate_hostnames):
 				if packet['ip'].src == ip:
 					if 'SSL' in packet:
 						if 'handshake_extensions_server_name' in packet.ssl.field_names:
-							print('SNI of visited site :',packet.ssl.handshake_extensions_server_name)
+							# print('SNI of visited site :',packet.ssl.handshake_extensions_server_name)
 							if check_address(packet.ssl.handshake_extensions_server_name,**alternate_hostnames) is True:
 								for device in devices.values():
 									if device.ip_address == ip:

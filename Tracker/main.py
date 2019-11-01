@@ -6,7 +6,7 @@ from app import app
 from network_capture import start_capture
 import threading
 
-interface_id = 'wlp4s0'
+interface_id = 'br0'
 
 #Thread for Flask web interface
 def interface_thread(devices, name):
