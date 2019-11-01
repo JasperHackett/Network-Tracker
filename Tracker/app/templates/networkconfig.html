@@ -12,14 +12,19 @@
 
 
   <body>
-       <h1> NETORK CONFIG </h1>
+       <h1> Network Config </h1>
 
       <!-- <form action = "http://localhost:5000/result" method = "POST"> -->
-        <form>
+<!--         <form>
          <p>Network Interface Name: <input type = "text" name = "nic" /></p>
           <input type="radio" name="mode" value="single" checked> Single<br>
           <input type="radio" name="mode" value="bridged"> Bridged<br>
-         <p><input type = "submit" value = "Setup" /></p>
+         <p><input type = "submit" value = "Setup" /></p> -->
+
+        <form action="{{ url_for('networkconfig') }}" method="post">
+         <p>Network Interface Card Name: <input type = "text" name = "NIC name" /></p>
+         <p><input type ="submit" name="nic_button" value="Update NIC name" /></p>
+      </form>
       </form>
 
   </body>

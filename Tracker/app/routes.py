@@ -62,8 +62,6 @@ def devices():
             # print(device_to_append[entry])
         f = open("device_list","a+")
         f.write(append_str + '\n')
-        # print(device_list_append[Name])
-        # print(append_str)
         f.close()
         with open("device_list") as f:
             for line in f:
@@ -78,13 +76,45 @@ def devices():
 
 
 
-@app.route('/networkconfig')
+@app.route('/networkconfig', methods=['GET','POST'])
 def networkconfig():
+    print('NETWORK CONFIG?')
+    nic_name = {}
+    # projectpath = request.form['projectFilepath']
 
-    posts = [
-        {
-            
+    # text = open('device_list', 'r+')
+    # content = text.read()
+    # text.close()
 
-        }
-    ]
-    return render_template('networkconfig.html',title='Network Config')
+    with open("nic_id") as f:
+        for line in f:
+            # (key,value) = line.split(':')
+            # print(line)
+            # val = value.rstrip()
+            # nic_name[key] = val
+            print("NIC Name: " + line)
+
+
+    if request.method == 'POST':
+        # print('TEST')
+        multi_dict = request.form
+        # print(multi_dict)
+        nic_name = {}
+        nic_name = multi_dict.to_dict(flat = False)
+        print(nic_name)
+
+        i = 0
+        append_str = ""
+        for entry in nic_name:
+
+            if i is 0:
+                f = open("nic_id","w")
+                f.truncate(0)
+                f.write(nic_name[entry][0])
+                f.close()
+                append_str = append_str + nic_name[entry][0]
+            i = i + 1
+
+
+
+    return render_template('networkconfig.html',title='Network Config',nic_name = nic_name)
