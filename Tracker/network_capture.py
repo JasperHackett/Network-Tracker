@@ -4,9 +4,10 @@ primary_hostname = 'none'
 
 def start_capture(interface_id,devices,device_addresses,**alternate_hostnames):
 	capture = pyshark.LiveCapture(interface=interface_id)
-
-	print('STARTING PACKET READ:')
+	# print(interface_id)
+	print('STARTING PACKET READ ON: ' + interface_id)
 	for packet in capture.sniff_continuously():
+		# print('Packet sniffed')
 		if 'HTTP' in packet or 'SSL' in packet:
 			for ip in device_addresses:
 				if packet['ip'].src == ip:

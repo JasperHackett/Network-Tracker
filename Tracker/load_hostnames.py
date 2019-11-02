@@ -1,5 +1,4 @@
 #Loads the hostnames and their alternate names to be tested against the SNI field in network packets
-
 def load_hostnames():
 	d = {}
 

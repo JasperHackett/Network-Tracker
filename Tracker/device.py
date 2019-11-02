@@ -1,5 +1,5 @@
 
-
+#Object for a device on the network
 class Device():
     ip_address = '0.0.0.0'
     visited_sites = []

@@ -6,42 +6,37 @@ from app import app
 from network_capture import start_capture
 import threading
 
+# Loads the name of the network interface card to be tracked from the nic_id file
 interface_id = 'br0'
+with open('nic_id') as f:
+	for line in f:
+		interface_id = line
 
 #Thread for Flask web interface
 def interface_thread(devices, name):
 	# print('THREAD PRINT',devices)
 	app.run(host='0.0.0.0')
 
-
+#Load list of devices
 devices = load_devices()
 
 t = threading.Thread(target = interface_thread, name = 'site_thread', args=(devices,'site_thread'))
-
-
-
-
 
 device_addresses = []
 for device in devices.values():
 	# print(device.ip_address)
 	device_addresses.append(device.ip_address)
 
-# print(device_addresses)
+#Loads tracked hostnames
 hostname_address_dict = {}
-# print("TIDY HOSTNAME:")
-
 alternate_hostnames_dict = load_hostnames()
-# print(alternate_hostnames_dict)
-
-
-# for hostname in alternate_hostnames_dict.values():
-	# print(hostname)
 
 
 def get_devices():
 	return devices
 
+#Starts flask thread for interface
 t.start()
+#Starts network packet capture
 start_capture(interface_id,devices,device_addresses,**alternate_hostnames_dict)
 

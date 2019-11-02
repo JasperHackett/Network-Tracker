@@ -6,6 +6,7 @@ from flask import request
 
 @app.route('/')
 @app.route('/index/')
+#Displays device activity log
 def index():
 
     text = open('activity_log', 'r+')
@@ -21,12 +22,9 @@ def index():
 @app.route('/devices', methods=['GET','POST'])
 def devices():
     device_list = {}
-    # projectpath = request.form['projectFilepath']
 
-    # text = open('device_list', 'r+')
-    # content = text.read()
-    # text.close()
 
+# Reading and writing to device list
     with open("device_list") as f:
         for line in f:
             (key,value) = line.split(':')
@@ -35,17 +33,13 @@ def devices():
 
 
     if request.method == 'POST':
-        # print('TEST')
         multi_dict = request.form
-        # print(multi_dict)
         device_to_append = {}
         device_to_append = multi_dict.to_dict(flat = False)
-        print(device_to_append)
 
         i = 0
         append_str = ""
         for entry in device_to_append:
-            print('ENTRY: ' + entry)
             if entry  == 'reset_button':
                     f = open("device_list","w")
                     f.truncate(0)
@@ -59,7 +53,6 @@ def devices():
             if i is 1:
                 append_str = append_str + device_to_append[entry][0]
             i = i + 1
-            # print(device_to_append[entry])
         f = open("device_list","a+")
         f.write(append_str + '\n')
         f.close()
@@ -75,33 +68,16 @@ def devices():
     return render_template('devices.html',title='Devices',device_list = device_list)
 
 
-
+# Page for setting network interface name
 @app.route('/networkconfig', methods=['GET','POST'])
 def networkconfig():
-    print('NETWORK CONFIG?')
     nic_name = {}
-    # projectpath = request.form['projectFilepath']
-
-    # text = open('device_list', 'r+')
-    # content = text.read()
-    # text.close()
-
-    with open("nic_id") as f:
-        for line in f:
-            # (key,value) = line.split(':')
-            # print(line)
-            # val = value.rstrip()
-            # nic_name[key] = val
-            print("NIC Name: " + line)
-
 
     if request.method == 'POST':
-        # print('TEST')
         multi_dict = request.form
-        # print(multi_dict)
+
         nic_name = {}
         nic_name = multi_dict.to_dict(flat = False)
-        print(nic_name)
 
         i = 0
         append_str = ""
