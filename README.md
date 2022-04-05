@@ -1,4 +1,21 @@
-#Installation#
+# Network Tracker
+
+
+Tracks web activity across a network using PyShark  (Python wrapper of the WireShark utility). Web interface to view activity / configure app is built using Python's Flask web framework
+
+Major project for my university course
+
+> jhac8475 was my university GitHub account, all commits by this user are my work
+
+![Device config](/demo_screenshot1.png?raw=true)
+![Activity view](/demo_screenshot2.png?raw=true)
+
+
+
+
+
+
+## **Setup**
 
 Required Python packages:
 pyshark
@@ -7,24 +24,23 @@ flask
 Unix packages:
 bridge-utils
 
-#Setup#
 
 Two ethernet interfaces are required to setup the tracker for multiple devices. A list of your interface names can be found by typing ifconfig into terminal
 
-Bridging interfaces:
+### Bridging interfaces:
 Open bridge_setup.sh and edit the 2nd line to include the name of the two interfaces to bridge after 'brctl addif br0 '. Edit the 4th line to include the first interface and the 5th to include the second.
 
 Then run bridge_setup.sh as root
 
 
-Single interface:
+### Single interface:
 For tracking a single device, open terminal and type ifconfig to find the name of the interface you wish to track. This can then be set in the Network Configuration section of the web interface
 
 This mode will only track a single device
 
 
 
-#Running Application#
+## **Running Application**
 
 In order to start the network tracker run main.py as root
 
